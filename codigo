@@ -1,0 +1,80 @@
+tarefas_pendentes = []
+
+def adicionar_nova_tarefa(tarefa, concluida = False):
+  """
+  Adiciona uma nova tarefa á lista de tarefas pendentes.
+
+  Parâmetros:
+  tarefa (str): A descrição da tarefa a ser adicionada.
+  concluida (bool): O status de conclusão da tarefa(False por padrão).
+
+  """
+  tarefas_pendentes.append([tarefa, concluida])
+  print(f'Tarefa {tarefa} adicionada com sucesso!')
+
+def listar_tarefas():
+  """
+  Lista todas as tarefas armazenadas, mostrando seu status de conclusão.
+
+  """
+  if not tarefas_pendentes:
+     print('Nenhuma tarefa encontrada.')
+  else:
+    for i, tarefa in enumerate(tarefas_pendentes):
+      status = 'Concluída' if tarefa[1] else 'Pendente'
+      print(f'{i + 1}.{tarefa[0]} - {status}')
+
+def concluir_tarefa(indice):
+  """
+  Marca a tarefa como concluida usando o índice da mesma como base para identifica-la.
+
+  Parâmetros:
+  indice (int): O índice da tarefa a ser marcada como concluída.
+
+  """
+  if 0 <= indice < len(tarefas_pendentes):
+    tarefas_pendentes[indice][1] = True
+    print(f"Tarefa '{tarefas_pendentes[indice][0]}' marcada como concluída!")
+  else:
+    print("Índice de tarefa inválido.")
+
+def remover_tarefa(indice):
+  """
+    Remove uma tarefa da lista usando o índice da mesma como base para identifica-la.
+
+    Parâmetros:
+    indice (int): O índice da tarefa a ser removida.
+  """
+
+  if 0 <= indice < len(tarefas_pendentes):
+    tarefa_removida = tarefas_pendentes.pop(indice)
+    print(f"Tarefa '{tarefa_removida[0]}' removida com sucesso!")
+  else:
+    print("Índice de tarefa inválido.")
+
+while True:
+    print("Sistema de Gestão de Tarefas")
+    print("1. Adicionar Tarefa")
+    print("2. Listar Tarefas")
+    print("3. Concluir Tarefa")
+    print("4. Remover Tarefa")
+    print("5. Sair")
+
+    opcao = input("Escolha uma opção: ")
+
+    if opcao == "1":
+        tarefa = input("Digite a tarefa: ")
+        adicionar_nova_tarefa(tarefa)
+    elif opcao == "2":
+        listar_tarefas()
+    elif opcao == "3":
+        indice = int(input("Digite o índice da tarefa a ser concluída: ")) - 1
+        concluir_tarefa(indice)
+    elif opcao == "4":
+        indice = int(input("Digite o índice da tarefa a ser removida: ")) - 1
+        remover_tarefa(indice)
+    elif opcao == "5":
+        print("Saindo do sistema. Até mais!")
+        break
+    else:
+        print("Opção inválida. Tente novamente.")
